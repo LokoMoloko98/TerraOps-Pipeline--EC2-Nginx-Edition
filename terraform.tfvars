@@ -8,8 +8,6 @@ number_of_instances = 1
 ami_key_pair_name   = "terraops"
 ssh_location        = "41.216.203.213/32"
 
-domain_name            = ".armada247.com"
-route53_hosted_zone_id = "Z007542816SWTW0LHHCXG"
 ami_id = "ami-0df435f331839b2d6"
 
 #vpc variables
