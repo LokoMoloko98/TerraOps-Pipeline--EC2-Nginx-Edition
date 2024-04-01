@@ -17,7 +17,7 @@ resource "aws_vpc_security_group_ingress_rule" "https_ingress" {
   ip_protocol       = "tcp"
   to_port           = 443
   tags = {
-    Name = "${var.project_name}-${var.environment}-https"
+    Name = "${var.project_name}-https"
   }
 }
 
@@ -52,6 +52,6 @@ resource "aws_vpc_security_group_egress_rule" "egress" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = -1
   tags = {
-    Name = "${var.project_name}-${var.environment}-lb-out"
+    Name = "${var.project_name}-egress"
   }
 }

@@ -4,7 +4,7 @@ terraform {
     bucket         = "terraope-pl-terraform-state"
     key            = "terraops-pl-terraform-state/terraform.tfstate"
     region         = "us-east-1"
-    profile        = "default"
+    profile        = "moloko-mokubedi"
     dynamodb_table = "terraform-state-lock"
   }
 }

@@ -1,3 +1,3 @@
-output "completion_time" {
-  value = timeadd(timestamp(), "2h")
+output "dev_ip" {
+  value = aws_instance.dev_node.public_ip
 }

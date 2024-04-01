@@ -1,9 +1,6 @@
 #!/bin/bash
 yum update -y
 sysctl -w vm.max_map_count=262144
-aws ecs put-account-setting --region eu-west-1 --name awsvpcTrunking  -value enabled
-echo ECS_CLUSTER=TerraOps-Pipeline-cluster >> /etc/ecs/ecs.config
-cat /etc/ecs/ecs.config | grep "ECS_CLUSTER"
 yum install docker -y
 systemctl start docker
 curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -19,14 +16,14 @@ pip3 install git-remote-codecommit
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
 INSTANCE_ID=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id`
 
-NEW_NAME_TAG="TerraOps-Pipeline-Test-Instance"
+NEW_NAME_TAG="DevNode-Instance"
 REGION=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//')
 aws ec2 create-tags --resources $INSTANCE_ID --tags Key=Name,Value="$NEW_NAME_TAG" --region $REGION
 
 DOMAIN_NAME="moloko-mokubedi.co.za"
-LOWERCASE_TENANT_ID="terraops-test"
+LOWERCASE_TENANT_ID="${hostname}"
 RECORD_NAME="$LOWERCASE_TENANT_ID.$DOMAIN_NAME."
-HOSTED_ZONE_ID="Z0813318CUEYPH91ZE2Q" # replace with your Route53 Hosted Zone ID
+HOSTED_ZONE_ID=${hostzone} # replace with your Route53 Hosted Zone ID
 TTL=300 # time to live for the record in seconds
 
 
